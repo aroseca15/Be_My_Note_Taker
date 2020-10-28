@@ -10,6 +10,9 @@ const path = require('path');
 
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
 
 // gets and returns notes.html
 app.get('/notes', (req, res) =>{
@@ -32,7 +35,7 @@ app.post('/api/notes', (req, res) =>{
     createdNote.id = uuidv4();
     db.push(createdNote);
 
-//  fs.writeFileAsync("db", JSON.stringify(notes));
+fs.writeFileAsync("./db/db.json", JSON.stringify(db));
    res.end();
    if (err) throw err;
 });
