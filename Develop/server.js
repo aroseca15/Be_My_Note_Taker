@@ -1,43 +1,38 @@
 const fs = require('fs');
-const http = require('http');
+
 const util = require('util');
 const express= require('express');
 const app = express();
 const url = require('url');
-const { v1: uuidv1 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
+let db = require('./db/db.json');
+const path = require('path');
 
+
+app.use(express.json());
 
 // gets and returns notes.html
 app.get('/notes', (req, res) =>{
-    return res.send('./public/notes.html');
+    return res.sendFile(path.resolve(__dirname, './public/notes.html'));
 })
-
-
-// gets and returns index.html
-app.get('*', (req, res) =>{
-return res.send('./public/index.html');
-});
 
 // should read the 'db.json' file and return the saved notes.
 app.get('/api/notes', (req, res)=>{
-    const notes = JSON.parse(data);
-    const displayNotes = req.body;
-    this.fs.readFileSync(notes);
-res.send('Here are your saved notes.' + res.JSON(displayNotes))
+    res.json(db);
 });
 
 // should recieve a new note to save on the request body, add it to the 'db.json', then return new note to the client with unique id for each note.
 app.post('/api/notes', (req, res) =>{
     // It seems I can do a path.join() here... Just not sure how.
-    this.fs.readFileSync(notes);
+   
 
     const createdNote = req.body;
-    const notes = JSON.parse(data);
-    createdNote.id = uuidv1();
-    notes.push(createdNote);
+    console.log(req);
+    createdNote.id = uuidv4();
+    db.push(createdNote);
 
-   const makeNote = this.fs.writeFileAsync("./Develope/db.json", JSON.stringify(notes))
-   res.send('Your Note Has Been Saved' + makeNote);
+//  fs.writeFileAsync("db", JSON.stringify(notes));
+   res.end();
    if (err) throw err;
 });
 
@@ -51,31 +46,34 @@ app.post('/api/notes', (req, res) =>{
 app.delete('/api/notes/:id', (req, res) =>{
     // I know I need readFile... But do I need writeFile too?
 const assignedID = req.params.id;
-const notes = JSON.parse(data);
-this.fs.readFileSync(notes);
+
+
+
 
 
 // Not sure how to write the below:
-const idArray = notes.filter(function item(){
-   return id!==assignedID});
-
+db = db.filter(function item(note){
+   return note.id!==assignedID});
+res.end()
 
 });
 
-
-
-
-
-
-
-
-
-
-
-const server = http.createServer((req, res){
+// gets and returns index.html
+app.get('*', (req, res) =>{
+    return res.sendFile(path.resolve(__dirname, './public/index.html'));
+    });
     
-});
+
+
+
+
+
+
+
+
+
+
     
     
-    server.listen(3000);
+    app.listen(3000);
     
