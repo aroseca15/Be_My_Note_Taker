@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+let PORT = process.env.PORT || 3000;
 const util = require('util');
 const express= require('express');
 const app = express();
@@ -15,6 +15,7 @@ app.use(express.json());
 app.get('/notes', (req, res) =>{
     return res.sendFile(path.resolve(__dirname, './public/notes.html'));
 })
+
 
 // should read the 'db.json' file and return the saved notes.
 app.get('/api/notes', (req, res)=>{
@@ -75,5 +76,8 @@ app.get('*', (req, res) =>{
 
     
     
-    app.listen(3000);
+    // app.listen(3000);
+    app.listen(PORT, function() {
+        console.log(`App listening on http://localhost:${PORT}`);
+    })
     
