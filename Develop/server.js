@@ -9,6 +9,7 @@ let db = require('./db/db.json');
 const path = require('path');
 
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,9 +36,13 @@ app.post('/api/notes', (req, res) =>{
     createdNote.id = uuidv4();
     db.push(createdNote);
 
-fs.writeFileAsync("./db/db.json", JSON.stringify(db));
+fs.writeFile("./db/db.json", JSON.stringify(db), (err)=>{
+    console.log('Note Saved!');
+    if (err) throw err;
+});
+
    res.end();
-   if (err) throw err;
+   
 });
 
 /* should recieve query parameter the id of a note to delete: 
