@@ -5,7 +5,7 @@ const express= require('express');
 const app = express();
 // const url = require('url');
 const { v4: uuidv4 } = require('uuid');
-let db = require('./Develop/db/db.json');
+let db = require('./db/db.json');
 const path = require('path');
 
 
