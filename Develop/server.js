@@ -68,7 +68,7 @@ res.end()
 });
 
 // gets and returns index.html
-app.get('*', (req, res) =>{
+app.get('/', (req, res) =>{
     return res.sendFile(path.resolve(__dirname, './public/index.html'));
     });
     
