@@ -1,9 +1,9 @@
 const fs = require('fs');
 let PORT = process.env.PORT || 3000;
-const util = require('util');
+// const util = require('util');
 const express= require('express');
 const app = express();
-const url = require('url');
+// const url = require('url');
 const { v4: uuidv4 } = require('uuid');
 let db = require('./db/db.json');
 const path = require('path');
